@@ -8,14 +8,19 @@ import java.util.List;
 public class EmployeeRepository {
 
    /* public static void main(String[] args) {
+
         getConnection();
 
         Employee employee = new Employee();
-
-        employee.setName("oleg");
-        employee.setEmail(" ");
-        employee.setCountry(" ");
+        employee.setName("Jack Black");
+        employee.setEmail("jack.black@gmail.com ");
+        employee.setCountry("Ukraine");
         save(employee);
+
+        Instant toy = Instant.now();
+        ZoneId zoneId = ZoneId.of("+03:00");
+        ZonedDateTime zdt = ZonedDateTime.ofInstant(toy, zoneId);
+        System.out.println(zdt);
     }*/
 
     public static Connection getConnection() {
