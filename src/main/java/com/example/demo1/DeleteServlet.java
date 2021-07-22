@@ -25,7 +25,6 @@ public class DeleteServlet extends HttpServlet {
         } else {
             out.println("There is no record with such id!");
         }
-
         out.close();
     }
 }

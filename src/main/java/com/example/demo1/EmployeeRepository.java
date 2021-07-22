@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-   /* public static void main(String[] args) {
+    public static void main(String[] args) {
 
         getConnection();
 
@@ -17,11 +17,11 @@ public class EmployeeRepository {
         employee.setCountry("Ukraine");
         save(employee);
 
-        Instant toy = Instant.now();
+        /*Instant toy = Instant.now();
         ZoneId zoneId = ZoneId.of("+03:00");
         ZonedDateTime zdt = ZonedDateTime.ofInstant(toy, zoneId);
-        System.out.println(zdt);
-    }*/
+        System.out.println(zdt);*/
+    }
 
     public static Connection getConnection() {
         Connection connection = null;
@@ -48,12 +48,10 @@ public class EmployeeRepository {
         int status = 0;
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into users(name,surname,email,country,phonenumber) values (?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("insert into users(name,email,country) values (?,?,?)");
             ps.setString(1, employee.getName());
-            ps.setString(2, employee.getSurname());
-            ps.setString(3, employee.getEmail());
-            ps.setString(4, employee.getCountry());
-            ps.setString(5, employee.getPhoneNumber());
+            ps.setString(2, employee.getEmail());
+            ps.setString(3, employee.getCountry());
 
             status = ps.executeUpdate();
             connection.close();
@@ -70,13 +68,11 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("update users set name=?,surname=?,email=?,country=?,phonenumber=? where id=?");
+            PreparedStatement ps = connection.prepareStatement("update users set name=?,email=?,country=? where id=?");
             ps.setString(1, employee.getName());
-            ps.setString(2, employee.getSurname());
-            ps.setString(3, employee.getEmail());
-            ps.setString(4, employee.getCountry());
-            ps.setString(5, employee.getPhoneNumber());
-            ps.setInt(6, employee.getId());
+            ps.setString(2, employee.getEmail());
+            ps.setString(3, employee.getCountry());
+            ps.setInt(4, employee.getId());
 
             status = ps.executeUpdate();
             connection.close();
@@ -88,6 +84,7 @@ public class EmployeeRepository {
     }
 
     public static int delete(int id) {
+
         int status = 0;
 
         try {
@@ -146,26 +143,24 @@ public class EmployeeRepository {
     }
 
     private static void getSQLExceptionInfo(SQLException e) {
+
         System.out.println("SQLException message:" + e.getMessage());
         System.out.println("SQLException SQL state:" + e.getSQLState());
         System.out.println("SQLException SQL error code:" + e.getErrorCode());
     }
 
     private static void setEmployee(Employee employee, ResultSet rs) throws SQLException {
+
         employee.setId(rs.getInt(1));
         employee.setName(rs.getString(2));
-        employee.setSurname(rs.getString(3));
-        employee.setEmail(rs.getString(4));
-        employee.setCountry(rs.getString(5));
-        employee.setPhoneNumber(rs.getString(6));
+        employee.setEmail(rs.getString(3));
+        employee.setCountry(rs.getString(4));
     }
 
+    public static void setEmployeeByRequest(Employee employee, HttpServletRequest request) {
 
-    public static void setEmployeeByRequest(Employee employee, HttpServletRequest request){
         employee.setName(request.getParameter("name"));
-        employee.setSurname(request.getParameter("surname"));
         employee.setEmail(request.getParameter("email"));
         employee.setCountry(request.getParameter("country"));
-        employee.setPhoneNumber(request.getParameter("phonenumber"));
     }
 }
