@@ -32,7 +32,7 @@ public class EmployeeRepository {
         int status = 0;
         try {
             Connection connection = EmployeeRepository.getConnection();
-            PreparedStatement ps = connection.prepareStatement("insert into users(name,surname,birthdate,specialty,country,phonenumber,email) values (?,?,?,?,?,?,?)");
+            PreparedStatement ps = connection.prepareStatement("insert into users(name,surname,birthdate,specialty,country,phonenumber,email,gender) values (?,?,?,?,?,?,?,?)");
             ps.setString(1, employee.getName());
             ps.setString(2, employee.getSurname());
             ps.setString(3, employee.getBirthdate());
@@ -40,6 +40,7 @@ public class EmployeeRepository {
             ps.setString(5, employee.getCountry());
             ps.setString(6, employee.getPhoneNumber());
             ps.setString(7, employee.getEmail());
+            ps.setString(8, employee.getGendr());
 
             status = ps.executeUpdate();
             connection.close();
@@ -56,7 +57,7 @@ public class EmployeeRepository {
 
         try {
             Connection connection = EmployeeRepository.getConnection();
-            try (PreparedStatement ps = connection.prepareStatement("update users set name=?,surname=?,birthdate=?,specialty=?,country=?,phonenumber=?,email=? where id=?")) {
+            try (PreparedStatement ps = connection.prepareStatement("update users set name=?,surname=?,birthdate=?,specialty=?,country=?,phonenumber=?,email=? where id=?, gender=?")) {
                 ps.setString(1, employee.getName());
                 ps.setString(2, employee.getSurname());
                 ps.setString(3, employee.getBirthdate());
@@ -65,6 +66,7 @@ public class EmployeeRepository {
                 ps.setString(6, employee.getPhoneNumber());
                 ps.setString(7, employee.getEmail());
                 ps.setInt(8, employee.getId());
+                ps.setString(9, employee.getGendr());
 
                 status = ps.executeUpdate();
             }
@@ -149,6 +151,7 @@ public class EmployeeRepository {
         employee.setCountry(rs.getString(6));
         employee.setPhoneNumber(rs.getString(7));
         employee.setEmail(rs.getString(8));
+        employee.setGendr(rs.getString(9));
     }
 
 
@@ -160,5 +163,6 @@ public class EmployeeRepository {
         employee.setCountry(request.getParameter("country"));
         employee.setPhoneNumber(request.getParameter("phonenumber"));
         employee.setEmail(request.getParameter("email"));
+        employee.setGendr(request.getParameter("gendr"));
     }
 }

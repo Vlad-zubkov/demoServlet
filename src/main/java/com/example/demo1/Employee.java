@@ -10,6 +10,11 @@ public class Employee {
     private String country;
     private String phoneNumber;
     private String email;
+    private String gendr;
+
+    public void setGendr(String gendr) {this.gendr = gendr; }
+
+    public String getGendr() {return gendr; }
 
     public String getSpecialty() {
         return specialty;
@@ -67,15 +72,19 @@ public class Employee {
         this.country = country;
     }
 
+
     @Override
     public String toString() {
-        return "Employee: " + name +
-                " " + surname +
-                "; birthdate: " + birthdate +
-                "; specialty: " + specialty +
-                "; email: " + email +
-                "; country: " + country +
-                "; phoneNumber: " + phoneNumber +
-                ";";
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthdate='" + birthdate + '\'' +
+                ", specialty='" + specialty + '\'' +
+                ", country='" + country + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", gendr='" + gendr + '\'' +
+                '}';
     }
 }
